@@ -377,6 +377,7 @@ input Parameters {
 type CreateFlightOrderResults {
   dictionaries: String
   data: Data
+  timestamp: String
 }
 
 type CreateFlightOrderResponse {

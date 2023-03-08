@@ -1,23 +1,14 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const BasisTheoryApiService_1 = __importDefault(require("./BasisTheoryApiService"));
 require("isomorphic-fetch");
 const baseUrl = "https://test.travel.api.amadeus.com";
 const fs = require("fs");
 class AmadeusDataSource {
     async createFlightOrder(amadeusClientId, amadeusSecret, data, basisTheoryToken, parameters) {
-        let tokenService = new BasisTheoryApiService_1.default();
-        console.log("Data received params", JSON.stringify(parameters));
         let token = await this.getToken(amadeusClientId, amadeusSecret);
-        let newData = await tokenService.getToken(data.data.tokenId, basisTheoryToken);
-        // @ts-ignore
-        const { contacts, travelers } = newData.data;
         const myBody = {
             data: {
-                contacts: contacts,
+                contacts: data.data.contacts,
                 flightOffers: data.data.flightOffers,
                 remarks: {
                     general: [
@@ -31,7 +22,7 @@ class AmadeusDataSource {
                     option: "DELAY_TO_CANCEL",
                     delay: "6D",
                 },
-                travelers: travelers,
+                travelers: data.data.travelers,
                 type: "flight-order",
             },
         };
@@ -47,9 +38,11 @@ class AmadeusDataSource {
             method: "POST",
             body: JSON.stringify(myBody),
         });
-        console.log("response code: " + resp.status);
+        // console.log("response code: " + resp.status);
         let response = await resp.json();
-        console.log("response: " + JSON.stringify(response));
+        // @ts-ignore
+        response.timestamp = Date.now().toString();
+        // console.log("response: " + JSON.stringify(response));
         if (resp.ok) {
             // @ts-ignore
             response.dictionaries = JSON.stringify(response.dictionaries);

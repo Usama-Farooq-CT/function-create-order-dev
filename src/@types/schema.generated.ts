@@ -114,6 +114,7 @@ export type CreateFlightOrderResults = {
   __typename?: 'CreateFlightOrderResults';
   data?: Maybe<Data>;
   dictionaries?: Maybe<Scalars['String']>;
+  timestamp?: Maybe<Scalars['String']>;
 };
 
 export type Data = {
@@ -703,6 +704,7 @@ export type CreateFlightOrderResponseResolvers<ContextType = any, ParentType ext
 export type CreateFlightOrderResultsResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateFlightOrderResults'] = ResolversParentTypes['CreateFlightOrderResults']> = {
   data?: Resolver<Maybe<ResolversTypes['Data']>, ParentType, ContextType>;
   dictionaries?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  timestamp?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
