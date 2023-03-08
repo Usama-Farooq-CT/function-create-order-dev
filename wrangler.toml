@@ -1,0 +1,25 @@
+name = "function-amadeus-flight-create-orders-dev"
+main = "build/main.js"
+workers_dev = true
+compatibility_date = "2022-09-29"
+
+[build]
+command = "npm run generate && npm run build"
+
+[vars]
+GRAPHQL_BASE_ENDPOINT = "/"
+GRAPHQL_PLAYGROUND_ENDPOINT = "/playground"
+GRAPHQL_KV_CACHE = ""
+DOPPLER_PROJECT = "enginedeveloperportal"
+DOPPLER_CONFIG = "development"
+DOPPLER_BASE64_TOKEN = "ZHAuc3QuZGV2ZWxvcG1lbnQuTVBXM0kzU0pHWXpZajRtVmVKZHZYS0h2ZlU2NzRWNjhQcHRmRUdPMDEzVDo="
+
+[env.production]
+name = "function-amadeus-flight-create-orders-dev"
+[[env.production.kv_namespaces]]
+binding = "GRAPHQL_CACHE"
+id = "ba46c41d96544abba4aae3600c4955eb"
+[env.production.vars]
+GRAPHQL_BASE_ENDPOINT = "/"
+GRAPHQL_PLAYGROUND_ENDPOINT = "/playground"
+GRAPHQL_KV_CACHE = "true"

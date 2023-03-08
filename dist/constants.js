@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.DEV_ENV = exports.WORKER_FUNCTION = exports.AZURE_FUNCTION = exports.AWS_LAMBDA = exports.GCP_FUNCTION = void 0;
+let GCP_FUNCTION = "GCF";
+exports.GCP_FUNCTION = GCP_FUNCTION;
+let AWS_LAMBDA = "lambda";
+exports.AWS_LAMBDA = AWS_LAMBDA;
+let AZURE_FUNCTION = "azure";
+exports.AZURE_FUNCTION = AZURE_FUNCTION;
+let WORKER_FUNCTION = "worker";
+exports.WORKER_FUNCTION = WORKER_FUNCTION;
+let DEV_ENV = "dev";
+exports.DEV_ENV = DEV_ENV;

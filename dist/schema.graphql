@@ -1,0 +1,393 @@
+input OtherInput {
+  method: String
+  flightOfferIds: [Int]
+}
+
+input FormOfPaymentsInput {
+  other: OtherInput
+}
+
+input AddressInput {
+  postalCode: String
+  cityName: String
+  countryCode: String
+  lines: [String]
+}
+
+input PhonesInput {
+  deviceType: String
+  countryCallingCode: String
+  number: String
+}
+
+input ContactsInput {
+  companyName: String
+  purpose: String
+  emailAddress: String
+  address: AddressInput
+  phones: [PhonesInput]
+  addresseeName: NameInput
+}
+
+input TicketingAgreementInput {
+  option: String
+  delay: String
+}
+
+input GeneralInput {
+  subType: String
+  text: String
+}
+
+input RemarksInput {
+  general: [GeneralInput]
+}
+
+input DocumentsInput {
+  documentType: String
+  birthPlace: String
+  issuanceLocation: String
+  issuanceDate: String
+  number: String
+  expiryDate: String
+  issuanceCountry: String
+  validityCountry: String
+  nationality: String
+  holder: Boolean
+}
+
+input ContactInput {
+  emailAddress: String
+  phones: [PhonesInput]
+}
+
+input NameInput {
+  firstName: String
+  lastName: String
+}
+
+input TravelersInput {
+  id: String
+  dateOfBirth: String
+  gender: String
+  documents: [DocumentsInput]
+  contact: ContactInput
+  name: NameInput
+}
+
+input IncludedCheckedBagsInput {
+  quantity: Int
+}
+
+input FareDetailsBySegmentInput {
+  segmentId: String
+  cabin: String
+  fareBasis: String
+  brandedFare: String
+  class: String
+  includedCheckedBags: IncludedCheckedBagsInput
+}
+
+input TaxesInput {
+  amount: String
+  code: String
+}
+
+input TravelerPricingsInput {
+  travelerId: String
+  fareOption: String
+  associatedAdultId: String
+  travelerType: String
+  fareDetailsBySegment: [FareDetailsBySegmentInput]
+  price: PriceInput
+}
+
+input PricingOptionsInput {
+  includedCheckedBagsOnly: Boolean
+  fareType: [String]
+}
+
+input FeesInput {
+  amount: String
+  type: String
+}
+
+input PriceInput {
+  currency: String
+  total: String
+  base: String
+  grandTotal: String
+  billingCurrency: String
+  taxes: [TaxesInput]
+  fees: [FeesInput]
+}
+
+input OperatingInput {
+  carrierCode: String
+}
+
+input AircraftInput {
+  code: String
+}
+
+input ArrivalInput {
+  iataCode: String
+  terminal: String
+  at: String
+}
+
+input SegmentsInput {
+  carrierCode: String
+  number: String
+  duration: String
+  blacklistedInEU: Boolean
+  id: String
+  numberOfStops: Int
+  operating: OperatingInput
+  aircraft: AircraftInput
+  arrival: ArrivalInput
+  departure: ArrivalInput
+}
+
+input ItinerariesInput {
+  duration: String
+  segments: [SegmentsInput]
+}
+input Rules {
+  category: String
+  maxPenaltyAmount: String
+  notApplicable: Boolean
+}
+input FareRules {
+  rules: [Rules]
+}
+input FlightOffersInput {
+  type: String
+  id: String
+  source: String
+  instantTicketingRequired: Boolean
+  nonHomogeneous: Boolean
+  paymentCardRequired: Boolean
+  lastTicketingDate: String
+  oneWay: Boolean
+  numberOfBookableSeats: Int
+  fareRules: FareRules
+  travelerPricings: [TravelerPricingsInput]
+  validatingAirlineCodes: [String]
+  pricingOptions: PricingOptionsInput
+  price: PriceInput
+  itineraries: [ItinerariesInput]
+}
+
+input DataInput {
+  type: String
+  tokenId: String
+  formOfPayments: [FormOfPaymentsInput]
+  contacts: [ContactsInput]
+  ticketingAgreement: TicketingAgreementInput
+  remarks: RemarksInput
+  travelers: [TravelersInput]
+  flightOffers: [FlightOffersInput]
+}
+
+type Address {
+  postalCode: String
+  cityName: String
+  countryCode: String
+  lines: [String]
+}
+
+type Phones {
+  deviceType: String
+  countryCallingCode: String
+  number: String
+}
+
+type Contacts {
+  companyName: String
+  purpose: String
+  emailAddress: String
+  address: Address
+  phones: [Phones]
+}
+
+type TicketingAggreement {
+  option: String
+  dateTime: String
+}
+
+type IncludedCheckedBags {
+  quantity: Int
+}
+
+type AllotmentDetails {
+  tourName: String
+  tourReference: String
+}
+
+type FareDetailsBySegment {
+  segmentId: String
+  cabin: String
+  fareBasis: String
+  brandedFare: String
+  class: String
+  isAllotment: Boolean
+  sliceDiceIndicator: String
+  includedCheckedBags: IncludedCheckedBags
+  allotmentDetails: AllotmentDetails
+}
+
+type Taxes {
+  code: String
+  amount: String
+}
+
+type TravelerPricings {
+  travelerId: String
+  fareOption: String
+  travelerType: String
+  associatedAdultId: String
+  fareDetailsBySegment: [FareDetailsBySegment]
+  price: Price
+}
+
+type PricingOptions {
+  includedCheckedBags: Boolean
+  corporateCodes: [String]
+  fareType: [String]
+}
+
+type Fees {
+  type: String
+  amount: String
+}
+
+type Price {
+  grandTotal: String
+  total: String
+  base: String
+  currency: String
+  billingCurrency: String
+  additionalServices: [Fees]
+  fees: [Fees]
+}
+
+type Co2Emissions {
+  weight: String
+  weightUnit: String
+  cabin: String
+}
+
+type Arrival {
+  at: String
+  terminal: String
+  iataCode: String
+}
+
+type Operating {
+  carrierCode: String
+}
+
+type Aircraft {
+  code: String
+}
+
+type Segments {
+  id: String
+  duration: String
+  numberOfStops: Int
+  blacklistedInEU: Boolean
+  carrierCode: String
+  number: String
+  co2Emissions: [Co2Emissions]
+  arrival: Arrival
+  departure: Arrival
+  operating: Operating
+  aircraft: Aircraft
+}
+
+type Itineraries {
+  duration: String
+  segments: [Segments]
+}
+
+type FlightOffers {
+  id: String
+  type: String
+  source: String
+  travelerPricings: [TravelerPricings]
+  validatingAirlineCodes: [String]
+  pricingOptions: PricingOptions
+  price: Price
+  itineraries: [Itineraries]
+}
+
+type Documents {
+  documentType: String
+  number: String
+  expiryDate: String
+  issuanceCountry: String
+  nationality: String
+  holder: Boolean
+}
+
+type Contact {
+  phones: [Phones]
+}
+
+type Name {
+  firstName: String
+  lastName: String
+}
+
+type Travelers {
+  id: String
+  dateOfBirth: String
+  documents: [Documents]
+  contact: Contact
+  name: Name
+}
+
+type AssociatedRecords {
+  reference: String
+  creationDateTime: String
+  originSystemCode: String
+  flightOfferId: String
+}
+
+type Data {
+  type: String
+  id: String
+  queuingOfficeId: String
+  contacts: [Contacts]
+  ticketingAggreement: TicketingAggreement
+  flightOffers: [FlightOffers]
+  travelers: [Travelers]
+  associatedRecords: [AssociatedRecords]
+}
+
+input CreateFlightOrderRequest {
+  data: DataInput
+}
+
+input Parameters {
+  clientRef: String
+}
+
+type CreateFlightOrderResults {
+  dictionaries: String
+  data: Data
+}
+
+type CreateFlightOrderResponse {
+  status: String
+  msg: String
+  response: CreateFlightOrderResults
+}
+
+type Query {
+  createFlightOrder(
+    request: CreateFlightOrderRequest
+    parameters: Parameters
+  ): CreateFlightOrderResponse
+}
